@@ -20,6 +20,7 @@ rowsum = function([x0], y)
 def fastremover(network, k, node_list=None, WIDTH=1000):
     """
     A function for remove nodes which have k degree
+    :param node_list: Nodes in nodelist will not be removed
     :param network: A network
     :type network: networkx.Graph
     :param k: degree filter
@@ -47,7 +48,7 @@ def fastremover(network, k, node_list=None, WIDTH=1000):
         x0_ = A[start_row:end_row, :].toarray()
         vals = rowsum(x0=x0_)
         for idx, val in enumerate(vals):
-            if val <= k and nodes[start_row+idx] in node_list:
+            if val <= k and nodes[start_row+idx] not in node_list:
                 network.remove_node(nodes[start_row+idx])
 
     return network
