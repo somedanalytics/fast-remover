@@ -17,7 +17,7 @@ y = x0.sum(axis=1)
 rowsum = function([x0], y)
 
 
-def fastremover(network, k, WIDTH=1000):
+def fastremover(network, k, node_list=None, WIDTH=1000):
     """
     A function for remove nodes which have k degree
     :param network: A network
@@ -26,6 +26,8 @@ def fastremover(network, k, WIDTH=1000):
     :type k: int
     :return: network
     """
+    if node_list is None:
+        node_list = []
 
     A = networkx.to_scipy_sparse_matrix(network, dtype=numpy.float32, format='csr')
     nodes = network.nodes()
@@ -45,7 +47,7 @@ def fastremover(network, k, WIDTH=1000):
         x0_ = A[start_row:end_row, :].toarray()
         vals = rowsum(x0=x0_)
         for idx, val in enumerate(vals):
-            if val <= k:
+            if val <= k and nodes[start_row+idx] in node_list:
                 network.remove_node(nodes[start_row+idx])
 
     return network
