@@ -31,6 +31,7 @@ def fastremover(network, k, node_list=None, WIDTH=1000):
         node_list = []
 
     A = networkx.to_scipy_sparse_matrix(network, dtype=numpy.float32, format='csr')
+    print("Nodes befrore remove: {}".format(A.shape))
     nodes = network.nodes()
 
     def num_blocks(rows_per_matrix, size_tuple):
