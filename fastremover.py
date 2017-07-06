@@ -50,6 +50,7 @@ def fastremover(network, k, node_list=None, WIDTH=1000):
         vals = rowsum(x0=x0_)
         for idx, val in enumerate(vals):
             if val <= k and nodes[start_row+idx] not in node_list:
+                print("Node removed: {}".format(nodes[start_row+idx]))
                 network.remove_node(nodes[start_row+idx])
     print("Nodes after remove: {}".format(len(network.nodes())))
     return network
